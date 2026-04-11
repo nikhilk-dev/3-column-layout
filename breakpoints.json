@@ -1,0 +1,69 @@
+{
+  "breakpoints": {
+    "desktop": {
+      "viewportPct": 100,
+      "sizeLabel": "1920 × 1080",
+      "navPx": 200,
+      "leftPx": 340,
+      "centerPx": 968,
+      "rightPx": 340,
+      "navPct": "11.5%",
+      "leftPct": "20.24%",
+      "centerPct": "57.62%",
+      "rightPct": "20.24%"
+    },
+    "tablet": {
+      "viewportPct": 75,
+      "sizeLabel": "1440 × 900",
+      "navPx": 200,
+      "leftPx": 220,
+      "centerPx": 728,
+      "rightPx": 220,
+      "navPct": "14.3%",
+      "leftPct": "18.33%",
+      "centerPct": "60.67%",
+      "rightPct": "18.33%"
+    },
+    "laptop": {
+      "viewportPct": 62.5,
+      "sizeLabel": "1200 × 800",
+      "navPx": 200,
+      "leftPx": 200,
+      "centerPx": 528,
+      "rightPx": 200,
+      "navPct": "17%",
+      "leftPct": "20.83%",
+      "centerPct": "55%",
+      "rightPct": "20.83%"
+    },
+    "fill": {
+      "viewportPct": 100,
+      "sizeLabel": "",
+      "navPx": 200,
+      "leftPx": 200,
+      "centerPx": 528,
+      "rightPx": 200,
+      "navPct": "17%",
+      "leftPct": "20.83%",
+      "centerPct": "55%",
+      "rightPct": "20.83%"
+    }
+  },
+  "layouts": {
+    "3col": {
+      "name": "3-Column",
+      "leftVisible": true,
+      "rightMode": "visible"
+    },
+    "2col": {
+      "name": "2-Column",
+      "leftVisible": true,
+      "rightMode": "placeholder"
+    },
+    "1col": {
+      "name": "1-Column",
+      "leftVisible": false,
+      "rightMode": "invisible"
+    }
+  }
+}

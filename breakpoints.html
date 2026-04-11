@@ -422,39 +422,52 @@
   </div>
 
   <script>
-    const breakpoints = {
-      desktop: {
-        viewportPct: 100, sizeLabel: '1920 × 1080',
-        navPx: 200, leftPx: 340, centerPx: 968, rightPx: 340,
-        navPct: '11.5%', leftPct: '20.24%', centerPct: '57.62%', rightPct: '20.24%',
-      },
-      tablet: {
-        viewportPct: 75, sizeLabel: '1440 × 900',
-        navPx: 200, leftPx: 220, centerPx: 728, rightPx: 220,
-        navPct: '14.3%', leftPct: '18.33%', centerPct: '60.67%', rightPct: '18.33%',
-      },
-      laptop: {
-        viewportPct: 62.5, sizeLabel: '1200 × 800',
-        navPx: 200, leftPx: 200, centerPx: 528, rightPx: 200,
-        navPct: '17%', leftPct: '20.83%', centerPct: '55%', rightPct: '20.83%',
-      },
-      fill: {
-        viewportPct: 100, sizeLabel: '',
-        navPx: 200, leftPx: 200, centerPx: 528, rightPx: 200,
-        navPct: '17%', leftPct: '20.83%', centerPct: '55%', rightPct: '20.83%',
-      },
-    };
-
-    const layouts = {
-      '3col': { name: '3-Column', leftVisible: true,  rightMode: 'visible'     },
-      '2col': { name: '2-Column', leftVisible: true,  rightMode: 'placeholder' },
-      '1col': { name: '1-Column', leftVisible: false, rightMode: 'invisible'   },
-    };
-
+    let breakpoints;
+    let layouts;
     let currentBP     = 'desktop';
     let currentLayout = '3col';
 
+    async function loadLayoutSpec() {
+      try {
+        const res = await fetch('breakpoints.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error(res.statusText);
+        const data = await res.json();
+        breakpoints = data.breakpoints;
+        layouts = data.layouts;
+      } catch (err) {
+        console.warn('breakpoints.html: could not load breakpoints.json (use a local HTTP server). Using embedded fallback.', err);
+        breakpoints = {
+          desktop: {
+            viewportPct: 100, sizeLabel: '1920 × 1080',
+            navPx: 200, leftPx: 340, centerPx: 968, rightPx: 340,
+            navPct: '11.5%', leftPct: '20.24%', centerPct: '57.62%', rightPct: '20.24%',
+          },
+          tablet: {
+            viewportPct: 75, sizeLabel: '1440 × 900',
+            navPx: 200, leftPx: 220, centerPx: 728, rightPx: 220,
+            navPct: '14.3%', leftPct: '18.33%', centerPct: '60.67%', rightPct: '18.33%',
+          },
+          laptop: {
+            viewportPct: 62.5, sizeLabel: '1200 × 800',
+            navPx: 200, leftPx: 200, centerPx: 528, rightPx: 200,
+            navPct: '17%', leftPct: '20.83%', centerPct: '55%', rightPct: '20.83%',
+          },
+          fill: {
+            viewportPct: 100, sizeLabel: '',
+            navPx: 200, leftPx: 200, centerPx: 528, rightPx: 200,
+            navPct: '17%', leftPct: '20.83%', centerPct: '55%', rightPct: '20.83%',
+          },
+        };
+        layouts = {
+          '3col': { name: '3-Column', leftVisible: true,  rightMode: 'visible'     },
+          '2col': { name: '2-Column', leftVisible: true,  rightMode: 'placeholder' },
+          '1col': { name: '1-Column', leftVisible: false, rightMode: 'invisible'   },
+        };
+      }
+    }
+
     function render() {
+      if (!breakpoints || !layouts) return;
       const bp  = breakpoints[currentBP];
       const lay = layouts[currentLayout];
 
@@ -545,6 +558,7 @@
 
     /** Opens a new tab: full-viewport preview; screen + column controls float over corners (no top bar). */
     function openFullScreen() {
+      if (!breakpoints || !layouts) return;
       const bpData     = JSON.stringify(breakpoints);
       const layoutsData = JSON.stringify(layouts);
       const initialBP   = JSON.stringify(currentBP);
@@ -739,7 +753,7 @@
       setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
     }
 
-    render();
+    loadLayoutSpec().then(render);
   </script>
 </body>
 </html>
