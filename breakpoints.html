@@ -10,7 +10,7 @@
   <style>
     :root {
       --color-surface-base: #e8e8e8;
-      --color-panel:        #d4d4d4;
+      --color-panel:        #d7d7d7;
       --color-content-bg:   #c8c8c8;
 
       --bg-base:      #0c0c0e;
@@ -29,7 +29,6 @@
       --radius-s:  6px;
       --radius-xs: 4px;
 
-      --shadow-card: 0 2px 8px rgba(0,0,0,0.25);
       --shadow-pop:  0 8px 24px rgba(0,0,0,0.3);
     }
 
@@ -115,142 +114,6 @@
       padding-bottom: 8px;
       margin-bottom: 20px;
     }
-
-    /* ─── Breakpoint section ─── */
-    .bp-section { margin-bottom: 68px; }
-    .bp-section__header {
-      display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px;
-      flex-wrap: wrap;
-    }
-    .bp-pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--bg-card);
-      border-radius: var(--radius-s); padding: 7px 14px;
-    }
-    .bp-pill__icon { font-size: 14px; }
-    .bp-pill__name { font-size: 13px; font-weight: 600; color: #e4e4e7; }
-    .bp-pill__dim  { font-size: 11px; color: var(--text-muted); }
-    .bp-pill__rule {
-      font-size: 10.5px; font-weight: 500; color: var(--text-muted);
-      background: var(--bg-card-2); padding: 2px 8px; border-radius: 4px;
-    }
-
-    /* ─── Layout cards ─── */
-    .layout-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    .layout-card {
-      background: var(--bg-card);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      box-shadow: var(--shadow-card);
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-    .layout-card:hover {
-      background: var(--bg-card-2);
-      transform: translateY(-1px);
-    }
-    .layout-card__label {
-      padding: 11px 15px;
-      display: flex; align-items: center; justify-content: space-between; gap: 8px;
-      background: var(--bg-card-2);
-    }
-    .layout-card__name { font-size: 12.5px; font-weight: 600; color: #e4e4e7; }
-    .layout-card__cols {
-      font-size: 10px; color: var(--text-muted);
-      background: var(--bg-surface);
-      padding: 2px 7px; border-radius: 4px; font-weight: 500; white-space: nowrap;
-    }
-    .layout-card__canvas-wrap {
-      padding: 12px;
-      background: var(--bg-surface);
-    }
-
-    /* ─── App frame mockup ─── */
-    .app-frame {
-      width: 100%;
-      aspect-ratio: var(--frame-ratio, 16/9);
-      background: var(--color-surface-base);
-      border-radius: var(--radius-m);
-      padding: 3px;
-      display: flex;
-    }
-    .app-frame__inner { display: flex; width: 100%; height: 100%; }
-    .app-nav {
-      flex-shrink: 0;
-      width: var(--nav-pct, 12%);
-      height: 100%;
-      background: var(--color-panel);
-      border-radius: 5px;
-      position: relative;
-    }
-    .app-nav::after {
-      content: "Nav";
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      font-size: 7.5px; color: #777; font-weight: 600; letter-spacing: .07em;
-    }
-    .app-content-side { flex: 1; display: flex; flex-direction: column; min-width: 0; }
-    .app-topbar {
-      flex-shrink: 0;
-      height: var(--topbar-pct, 8%);
-      background: var(--color-panel);
-      border-radius: 5px;
-      position: relative;
-    }
-    .app-topbar::after {
-      content: "Top Bar";
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      font-size: 7.5px; color: #777; font-weight: 600;
-    }
-    .app-body {
-      flex: 1;
-      background: var(--color-content-bg);
-      border-radius: 5px;
-      padding: var(--body-pad-pct, 1.5%);
-      display: flex;
-      gap: var(--body-gap-pct, 1.5%);
-      min-height: 0;
-      min-width: 0;
-      overflow: hidden;
-    }
-    .app-panel {
-      height: 100%;
-      background: var(--color-panel);
-      border-radius: 4px;
-      position: relative;
-      overflow: hidden;
-    }
-    .app-panel--fixed  { flex-shrink: 0; }
-    .app-panel--flex   { flex: 1; min-width: 0; }
-    .app-panel--hidden { width: 0 !important; flex: 0 !important; overflow: hidden; }
-    .app-panel__label {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      font-size: 7.5px; color: #666; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .07em; white-space: nowrap;
-    }
-    /* ─── Spec chips ─── */
-    .layout-card__specs {
-      padding: 11px 15px;
-      background: var(--bg-surface);
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    .spec-row { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
-    .spec-chip {
-      font-size: 10px; padding: 2px 7px; border-radius: 4px; font-weight: 500;
-      font-family: "JetBrains Mono", monospace;
-    }
-    .spec-chip--nav,
-    .spec-chip--left,
-    .spec-chip--center,
-    .spec-chip--right { background: var(--bg-card-2); color: var(--text-muted); }
-    .spec-chip--hidden { background: var(--bg-base); color: var(--text-dim); text-decoration: line-through; opacity: 0.75; }
-    .spec-chip--dim    { background: var(--bg-card-2); color: var(--text-dim); }
-    .spec-arrow { color: #2d2d35; font-size: 10px; }
 
     /* ─── Demo section ─── */
     .demo-section {
@@ -414,37 +277,6 @@
     .legend-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
     .legend-label { font-size: 11px; color: var(--text-muted); }
 
-    /* ─── Spec table ─── */
-    .spec-table-wrap {
-      background: var(--bg-card);
-      border-radius: var(--radius-xl);
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
-      margin-bottom: 56px; box-shadow: var(--shadow-card);
-    }
-    .spec-table-wrap table {
-      width: 100%;
-      min-width: 520px;
-      border-collapse: collapse;
-    }
-    .spec-table-wrap th {
-      text-align: left; padding: 11px 16px;
-      font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--text-dim); background: var(--bg-card-2);
-    }
-    .spec-table-wrap td {
-      padding: 11px 16px; font-size: 12px; color: var(--text-muted);
-      vertical-align: top;
-    }
-    .spec-table-wrap tr:hover td { background: rgba(255,255,255,.018); }
-    code {
-      background: var(--bg-surface);
-      padding: 1px 6px; border-radius: 4px;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 11px; color: var(--text-muted);
-    }
-
     /* ─── Figma link ─── */
     .figma-source {
       display: inline-flex; align-items: center; gap: 7px;
@@ -457,7 +289,6 @@
 
     /* ─── Responsive ─── */
     @media (max-width: 900px) {
-      .layout-cards { grid-template-columns: 1fr; }
       .doc-body { padding: 28px clamp(16px, 4vw, 20px) 60px; }
       .demo-section__controls { align-items: stretch; }
       .demo-btn { font-size: 11px; padding: 5px 10px; }
@@ -471,11 +302,9 @@
       .demo-section__controls { align-items: stretch; }
       .demo-controls { width: 100%; }
       .demo-btn--fullscreen { width: 100%; justify-content: center; }
-      .bp-section__header > span:last-child { font-size: 11px; line-height: 1.45; }
     }
     @media (max-width: 600px) {
       .section-heading { margin-bottom: 14px; }
-      .bp-section { margin-bottom: 48px; }
     }
   </style>
 </head>
@@ -588,480 +417,6 @@
         <div class="legend-item"><div class="legend-swatch" style="background:#a8a8a8"></div><span class="legend-label">Right panel</span></div>
         <div class="legend-item"><div class="legend-swatch" style="background:#3a3a3c;opacity:.45"></div><span class="legend-label">Hidden / collapsed</span></div>
       </div>
-    </div>
-
-    <!-- ── Desktop breakpoint ── -->
-    <div class="section-heading">Desktop · 1920 × 1080</div>
-    <div class="bp-section">
-      <div class="bp-section__header">
-        <div class="bp-pill">
-          <span class="bp-pill__icon">🖥️</span>
-          <span class="bp-pill__name">Desktop</span>
-          <span class="bp-pill__dim">1920 × 1080 px</span>
-          <span class="bp-pill__rule">≥ 1920px</span>
-        </div>
-        <span style="color:var(--text-muted);font-size:12px">All three content panels visible · App container padding: 4px · Border radius: 10px</span>
-      </div>
-      <div class="layout-cards">
-
-        <div class="layout-card">
-          <div class="layout-card__label">
-            <span class="layout-card__name">3-Column Layout</span>
-            <span class="layout-card__cols">Left + Center + Right</span>
-          </div>
-          <div class="layout-card__canvas-wrap">
-            <div class="app-frame" style="--frame-ratio:16/9">
-              <div class="app-frame__inner">
-                <div class="app-nav" style="--nav-pct:11.5%"></div>
-                <div class="app-content-side">
-                  <div class="app-topbar" style="--topbar-pct:6%"></div>
-                  <div class="app-body">
-                    <div class="app-panel app-panel--fixed app-panel--left" style="width:19.6%"><span class="app-panel__label">Left</span></div>
-                    <div class="app-panel app-panel--flex app-panel--center"><span class="app-panel__label">Center</span></div>
-                    <div class="app-panel app-panel--fixed app-panel--right" style="width:19.6%"><span class="app-panel__label">Right</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="layout-card__specs">
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--nav">Nav 200px</span>
-              <span class="spec-arrow">→</span>
-              <span class="spec-chip spec-chip--left">Left 340px</span>
-              <span class="spec-arrow">+</span>
-              <span class="spec-chip spec-chip--center">Center min-width 968px</span>
-              <span class="spec-arrow">+</span>
-              <span class="spec-chip spec-chip--right">Right 340px</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--dim">Gap 16px</span>
-              <span class="spec-chip spec-chip--dim">Padding 16px</span>
-              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="layout-card">
-          <div class="layout-card__label">
-            <span class="layout-card__name">2-Column Layout</span>
-            <span class="layout-card__cols">Left + Center · Right not rendered</span>
-          </div>
-          <div class="layout-card__canvas-wrap">
-            <div class="app-frame" style="--frame-ratio:16/9">
-              <div class="app-frame__inner">
-                <div class="app-nav" style="--nav-pct:11.5%"></div>
-                <div class="app-content-side">
-                  <div class="app-topbar" style="--topbar-pct:6%"></div>
-                  <div class="app-body">
-                    <div class="app-panel app-panel--fixed app-panel--left" style="width:19.6%"><span class="app-panel__label">Left</span></div>
-                    <div class="app-panel app-panel--fixed app-panel--center" style="width:55.8%;max-width:55.8%"><span class="app-panel__label">Center</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="layout-card__specs">
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--nav">Nav 200px</span>
-              <span class="spec-arrow">→</span>
-              <span class="spec-chip spec-chip--left">Left 340px</span>
-              <span class="spec-arrow">+</span>
-              <span class="spec-chip spec-chip--center">Center 968px · max-width 968px</span>
-              <span class="spec-arrow">+</span>
-              <span class="spec-chip spec-chip--hidden">Right not rendered</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--dim">Gap 16px</span>
-              <span class="spec-chip spec-chip--dim">Padding 16px</span>
-              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="layout-card">
-          <div class="layout-card__label">
-            <span class="layout-card__name">1-Column Layout</span>
-            <span class="layout-card__cols">Center only · Both panels hidden</span>
-          </div>
-          <div class="layout-card__canvas-wrap">
-            <div class="app-frame" style="--frame-ratio:16/9">
-              <div class="app-frame__inner">
-                <div class="app-nav" style="--nav-pct:11.5%"></div>
-                <div class="app-content-side">
-                  <div class="app-topbar" style="--topbar-pct:6%"></div>
-                  <div class="app-body">
-                    <div class="app-panel app-panel--hidden"></div>
-                    <div class="app-panel app-panel--flex app-panel--center"><span class="app-panel__label">Center</span></div>
-                    <div class="app-panel app-panel--hidden"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="layout-card__specs">
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--nav">Nav 200px</span>
-              <span class="spec-arrow">→</span>
-              <span class="spec-chip spec-chip--hidden">Left hidden</span>
-              <span class="spec-arrow">+</span>
-              <span class="spec-chip spec-chip--center">Center min-width 968px</span>
-              <span class="spec-arrow">+</span>
-              <span class="spec-chip spec-chip--hidden">Right hidden</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--dim">Gap 16px</span>
-              <span class="spec-chip spec-chip--dim">Padding 16px</span>
-              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── Tablet breakpoint ── -->
-    <div class="section-heading">Tablet · 1440 × 900</div>
-    <div class="bp-section">
-      <div class="bp-section__header">
-        <div class="bp-pill">
-          <span class="bp-pill__icon">💻</span>
-          <span class="bp-pill__name">Tablet / Laptop-L</span>
-          <span class="bp-pill__dim">1440 × 900 px</span>
-          <span class="bp-pill__rule">≥ 1440px &lt; 1920px</span>
-        </div>
-        <span style="color:var(--text-muted);font-size:12px">Side panels scale down to 220px · Container shrinks proportionally</span>
-      </div>
-      <div class="layout-cards">
-
-        <div class="layout-card">
-          <div class="layout-card__label">
-            <span class="layout-card__name">3-Column Layout</span>
-            <span class="layout-card__cols">Left + Center + Right</span>
-          </div>
-          <div class="layout-card__canvas-wrap">
-            <div class="app-frame" style="--frame-ratio:1440/900">
-              <div class="app-frame__inner">
-                <div class="app-nav" style="--nav-pct:14.3%"></div>
-                <div class="app-content-side">
-                  <div class="app-topbar" style="--topbar-pct:6%"></div>
-                  <div class="app-body">
-                    <div class="app-panel app-panel--fixed app-panel--left" style="width:17.5%"><span class="app-panel__label">Left</span></div>
-                    <div class="app-panel app-panel--flex app-panel--center"><span class="app-panel__label">Center</span></div>
-                    <div class="app-panel app-panel--fixed app-panel--right" style="width:17.5%"><span class="app-panel__label">Right</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="layout-card__specs">
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--nav">Nav 200px</span>
-              <span class="spec-chip spec-chip--left">Left 220px</span>
-              <span class="spec-chip spec-chip--center">Center min-width 728px</span>
-              <span class="spec-chip spec-chip--right">Right 220px</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--dim">Gap 16px</span>
-              <span class="spec-chip spec-chip--dim">Padding 16px</span>
-              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="layout-card">
-          <div class="layout-card__label">
-            <span class="layout-card__name">2-Column Layout</span>
-            <span class="layout-card__cols">Left + Center · Right invisible placeholder</span>
-          </div>
-          <div class="layout-card__canvas-wrap">
-            <div class="app-frame" style="--frame-ratio:1440/900">
-              <div class="app-frame__inner">
-                <div class="app-nav" style="--nav-pct:14.3%"></div>
-                <div class="app-content-side">
-                  <div class="app-topbar" style="--topbar-pct:6%"></div>
-                  <div class="app-body">
-                    <div class="app-panel app-panel--fixed app-panel--left" style="width:17.5%"><span class="app-panel__label">Left</span></div>
-                    <div class="app-panel app-panel--fixed app-panel--center" style="width:57.5%;max-width:57.5%"><span class="app-panel__label">Center</span></div>
-                    <div class="app-panel app-panel--fixed" style="width:17.5%;background:transparent"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="layout-card__specs">
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--nav">Nav 200px</span>
-              <span class="spec-chip spec-chip--left">Left 220px</span>
-              <span class="spec-chip spec-chip--center">Center 728px · max-width 728px</span>
-              <span class="spec-chip spec-chip--hidden">Right 220px · no fill</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--dim">Gap 16px</span>
-              <span class="spec-chip spec-chip--dim">Padding 16px</span>
-              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="layout-card">
-          <div class="layout-card__label">
-            <span class="layout-card__name">1-Column Layout</span>
-            <span class="layout-card__cols">Center only · Both panels hidden</span>
-          </div>
-          <div class="layout-card__canvas-wrap">
-            <div class="app-frame" style="--frame-ratio:1440/900">
-              <div class="app-frame__inner">
-                <div class="app-nav" style="--nav-pct:14.3%"></div>
-                <div class="app-content-side">
-                  <div class="app-topbar" style="--topbar-pct:6%"></div>
-                  <div class="app-body">
-                    <div class="app-panel app-panel--hidden"></div>
-                    <div class="app-panel app-panel--flex app-panel--center"><span class="app-panel__label">Center</span></div>
-                    <div class="app-panel app-panel--hidden"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="layout-card__specs">
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--nav">Nav 200px</span>
-              <span class="spec-chip spec-chip--hidden">Left hidden</span>
-              <span class="spec-chip spec-chip--center">Center min-width 728px</span>
-              <span class="spec-chip spec-chip--hidden">Right hidden</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--dim">Gap 16px</span>
-              <span class="spec-chip spec-chip--dim">Padding 16px</span>
-              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── Laptop breakpoint ── -->
-    <div class="section-heading">Laptop · 1200 × 800</div>
-    <div class="bp-section">
-      <div class="bp-section__header">
-        <div class="bp-pill">
-          <span class="bp-pill__icon">📟</span>
-          <span class="bp-pill__name">Laptop / Small</span>
-          <span class="bp-pill__dim">1200 × 800 px</span>
-          <span class="bp-pill__rule">≥ 1200px &lt; 1440px</span>
-        </div>
-        <span style="color:var(--text-muted);font-size:12px">Side panels scale down to 200px · Center min-width 528px</span>
-      </div>
-      <div class="layout-cards">
-
-        <div class="layout-card">
-          <div class="layout-card__label">
-            <span class="layout-card__name">3-Column Layout</span>
-            <span class="layout-card__cols">Left + Center + Right</span>
-          </div>
-          <div class="layout-card__canvas-wrap">
-            <div class="app-frame" style="--frame-ratio:1200/800">
-              <div class="app-frame__inner">
-                <div class="app-nav" style="--nav-pct:17%"></div>
-                <div class="app-content-side">
-                  <div class="app-topbar" style="--topbar-pct:6.5%"></div>
-                  <div class="app-body">
-                    <div class="app-panel app-panel--fixed app-panel--left" style="width:17%"><span class="app-panel__label">Left</span></div>
-                    <div class="app-panel app-panel--flex app-panel--center"><span class="app-panel__label">Center</span></div>
-                    <div class="app-panel app-panel--fixed app-panel--right" style="width:17%"><span class="app-panel__label">Right</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="layout-card__specs">
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--nav">Nav 200px</span>
-              <span class="spec-chip spec-chip--left">Left 200px</span>
-              <span class="spec-chip spec-chip--center">Center min-width 528px</span>
-              <span class="spec-chip spec-chip--right">Right 200px</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--dim">Gap 16px</span>
-              <span class="spec-chip spec-chip--dim">Padding 16px</span>
-              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="layout-card">
-          <div class="layout-card__label">
-            <span class="layout-card__name">2-Column Layout</span>
-            <span class="layout-card__cols">Left + Center · Right invisible placeholder</span>
-          </div>
-          <div class="layout-card__canvas-wrap">
-            <div class="app-frame" style="--frame-ratio:1200/800">
-              <div class="app-frame__inner">
-                <div class="app-nav" style="--nav-pct:17%"></div>
-                <div class="app-content-side">
-                  <div class="app-topbar" style="--topbar-pct:6.5%"></div>
-                  <div class="app-body">
-                    <div class="app-panel app-panel--fixed app-panel--left" style="width:17%"><span class="app-panel__label">Left</span></div>
-                    <div class="app-panel app-panel--fixed app-panel--center" style="width:55%;max-width:55%"><span class="app-panel__label">Center</span></div>
-                    <div class="app-panel app-panel--fixed" style="width:17%;background:transparent"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="layout-card__specs">
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--nav">Nav 200px</span>
-              <span class="spec-chip spec-chip--left">Left 200px</span>
-              <span class="spec-chip spec-chip--center">Center 528px · max-width 528px</span>
-              <span class="spec-chip spec-chip--hidden">Right 200px · no fill</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--dim">Gap 16px</span>
-              <span class="spec-chip spec-chip--dim">Padding 16px</span>
-              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="layout-card">
-          <div class="layout-card__label">
-            <span class="layout-card__name">1-Column Layout</span>
-            <span class="layout-card__cols">Center only · Both panels hidden</span>
-          </div>
-          <div class="layout-card__canvas-wrap">
-            <div class="app-frame" style="--frame-ratio:1200/800">
-              <div class="app-frame__inner">
-                <div class="app-nav" style="--nav-pct:17%"></div>
-                <div class="app-content-side">
-                  <div class="app-topbar" style="--topbar-pct:6.5%"></div>
-                  <div class="app-body">
-                    <div class="app-panel app-panel--hidden"></div>
-                    <div class="app-panel app-panel--flex app-panel--center"><span class="app-panel__label">Center</span></div>
-                    <div class="app-panel app-panel--hidden"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="layout-card__specs">
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--nav">Nav 200px</span>
-              <span class="spec-chip spec-chip--hidden">Left hidden</span>
-              <span class="spec-chip spec-chip--center">Center min-width 528px</span>
-              <span class="spec-chip spec-chip--hidden">Right hidden</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-chip spec-chip--dim">Gap 16px</span>
-              <span class="spec-chip spec-chip--dim">Padding 16px</span>
-              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── Pixel-precise spec table ── -->
-    <div class="section-heading">Pixel-Precise Spec Table</div>
-    <div class="spec-table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Screen</th>
-            <th>Viewport</th>
-            <th>Nav Sidebar</th>
-            <th>Left Panel</th>
-            <th>Center</th>
-            <th>Right Panel</th>
-            <th>Content Padding</th>
-            <th>Panel Gap</th>
-            <th>Top Bar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong style="color:#e4e4e7;font-weight:600">Desktop</strong></td>
-            <td><code>1920 × 1080</code></td>
-            <td><code>200px</code></td>
-            <td><code>340px</code></td>
-            <td><code>min-width: 968px</code> (3-col) · <code>968px max-width: 968px</code> (2-col)</td>
-            <td><code>340px</code></td>
-            <td><code>16px</code></td>
-            <td><code>16px</code></td>
-            <td><code>44px</code></td>
-          </tr>
-          <tr>
-            <td><strong style="color:#e4e4e7;font-weight:600">Tablet</strong></td>
-            <td><code>1440 × 900</code></td>
-            <td><code>200px</code></td>
-            <td><code>220px</code></td>
-            <td><code>min-width: 728px</code> (3-col) · <code>728px max-width: 728px</code> (2-col)</td>
-            <td><code>220px</code></td>
-            <td><code>16px</code></td>
-            <td><code>16px</code></td>
-            <td><code>44px</code></td>
-          </tr>
-          <tr>
-            <td><strong style="color:#e4e4e7;font-weight:600">Laptop</strong></td>
-            <td><code>1200 × 800</code></td>
-            <td><code>200px</code></td>
-            <td><code>200px</code></td>
-            <td><code>min-width: 528px</code> (3-col) · <code>528px max-width: 528px</code> (2-col)</td>
-            <td><code>200px</code></td>
-            <td><code>16px</code></td>
-            <td><code>16px</code></td>
-            <td><code>44px</code></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- ── CSS media query reference ── -->
-    <div class="section-heading">CSS Media Query Reference</div>
-    <div class="spec-table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Breakpoint</th>
-            <th>Media Query</th>
-            <th>Layout State</th>
-            <th>Side Panel Width</th>
-            <th>Behaviour</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong style="color:#e4e4e7;font-weight:600">Desktop (3-col)</strong></td>
-            <td><code>@media (min-width: 1920px)</code></td>
-            <td>3-Column</td>
-            <td>Left <code>340px</code> · Right <code>340px</code></td>
-            <td>Both panels visible · center min-width 968px (3-col)</td>
-          </tr>
-          <tr>
-            <td><strong style="color:#e4e4e7;font-weight:600">Tablet (2-col)</strong></td>
-            <td><code>@media (min-width: 1440px) and (max-width: 1919px)</code></td>
-            <td>2-Column</td>
-            <td>Left <code>220px</code> · Right <code>display:none</code></td>
-            <td>Right invisible placeholder · center max-width 728px · desktop removes right entirely</td>
-          </tr>
-          <tr>
-            <td><strong style="color:#e4e4e7;font-weight:600">Laptop (1-col)</strong></td>
-            <td><code>@media (max-width: 1439px)</code></td>
-            <td>1-Column</td>
-            <td>Left <code>display:none</code> · Right <code>display:none</code></td>
-            <td>Both panels hidden · center min-width 528px (1-col)</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- ── Footer ── -->
-    <div style="text-align:center;padding:40px 0 0;color:var(--text-dim);font-size:11.5px">
-      Portkey Prism · Model Catalog · Layout Reference ·
-      <a href="https://www.figma.com/design/oyKbb6Ht7G7w42ZCO03k4l/Portkey-Prism?node-id=7422-11338" target="_blank" style="color:var(--text-muted);text-decoration:none">View Figma source</a>
     </div>
 
   </div>
@@ -1188,7 +543,7 @@
     function setBreakpoint(bp) { currentBP = bp; render(); }
     function setLayout(layout) { currentLayout = layout; render(); }
 
-    /** Opens a new tab: Screen bar on top, floating column controls at the bottom. */
+    /** Opens a new tab: full-viewport preview; screen + column controls float over corners (no top bar). */
     function openFullScreen() {
       const bpData     = JSON.stringify(breakpoints);
       const layoutsData = JSON.stringify(layouts);
@@ -1204,17 +559,10 @@
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%}
-    body{background:#0c0c0e;overflow:hidden;display:flex;flex-direction:column;font-family:system-ui,-apple-system,sans-serif}
-    .fs-toolbar{
-      flex-shrink:0;background:#141416;padding:10px 12px;display:flex;flex-direction:column;gap:8px;
-    }
-    .fs-toolbar__row{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+    body{background:#0c0c0e;overflow:hidden;margin:0;font-family:system-ui,-apple-system,sans-serif}
     .fs-toolbar__label{
-      font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#71717a;
-      margin-right:4px;width:100%;
-    }
-    @media (min-width:520px){
-      .fs-toolbar__label{width:auto;margin-right:6px}
+      font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#71717a;
+      margin:0 0 4px 0;display:block;
     }
     .fs-btn{
       border:none;background:#242428;color:#a1a1aa;padding:6px 11px;border-radius:6px;
@@ -1223,27 +571,29 @@
     .fs-btn:hover{background:#2e2e32;color:#e4e4e7}
     .fs-btn.active{background:#3a3a3e;color:#fafafa}
     .fs-float{
-      position:fixed;
-      bottom:calc(14px + env(safe-area-inset-bottom, 0px));
-      left:50%;
-      transform:translateX(-50%);
-      z-index:100;
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:center;
-      gap:6px;
-      max-width:calc(100vw - 24px);
-      padding:8px 12px;
-      background:rgba(20,20,22,.94);
+      position:fixed;z-index:100;
+      padding:8px 10px;
+      background:rgba(20,20,22,.92);
       backdrop-filter:blur(10px);
       -webkit-backdrop-filter:blur(10px);
-      border-radius:999px;
+      border-radius:10px;
       box-shadow:0 10px 40px rgba(0,0,0,.5);
+      pointer-events:auto;
     }
-    .fs-float .fs-toolbar__label{width:auto;margin-right:2px}
+    .fs-float--dock{
+      right:calc(12px + env(safe-area-inset-right, 0px));
+      bottom:calc(12px + env(safe-area-inset-bottom, 0px));
+      left:auto;
+      width:min(228px, calc(100vw - 24px));
+      display:flex;flex-direction:column;gap:10px;
+    }
+    .fs-float__block{display:flex;flex-direction:column;gap:5px}
+    .fs-float__block .fs-toolbar__label{margin-bottom:0}
+    .fs-float__row{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+    .fs-float__row .fs-btn{font-size:10px;padding:6px 8px}
+    .fs-float--dock .fs-btn[data-lay]{font-size:11px;padding:7px 10px}
     .fs-root{
-      flex:1;min-height:0;display:flex;justify-content:center;align-items:stretch;background:#111;
+      height:100%;min-height:100vh;display:flex;justify-content:center;align-items:stretch;background:#111;
     }
     .fs-app{
       width:100%;height:100%;display:flex;flex-direction:column;padding:4px;background:#e8e8e8;
@@ -1264,15 +614,6 @@
   </style>
 </head>
 <body>
-  <div class="fs-toolbar">
-    <div class="fs-toolbar__row">
-      <span class="fs-toolbar__label">Screen</span>
-      <button type="button" class="fs-btn" id="fs-btn-desktop" data-bp="desktop">Desktop · 1920</button>
-      <button type="button" class="fs-btn" id="fs-btn-tablet" data-bp="tablet">Tablet · 1440</button>
-      <button type="button" class="fs-btn" id="fs-btn-laptop" data-bp="laptop">Laptop · 1200</button>
-      <button type="button" class="fs-btn" id="fs-btn-fill" data-bp="fill">Fill window</button>
-    </div>
-  </div>
   <div class="fs-root">
     <div class="fs-app" id="fs-app">
       <div class="fs-row">
@@ -1288,11 +629,22 @@
       </div>
     </div>
   </div>
-  <div class="fs-float" role="toolbar" aria-label="Column layout">
-    <span class="fs-toolbar__label">Columns</span>
-    <button type="button" class="fs-btn" id="fs-btn-3col" data-lay="3col">3-Column</button>
-    <button type="button" class="fs-btn" id="fs-btn-2col" data-lay="2col">2-Column</button>
-    <button type="button" class="fs-btn" id="fs-btn-1col" data-lay="1col">1-Column</button>
+  <div class="fs-float fs-float--dock" role="toolbar" aria-label="Layout controls">
+    <div class="fs-float__block">
+      <span class="fs-toolbar__label">Screen</span>
+      <div class="fs-float__row">
+        <button type="button" class="fs-btn" id="fs-btn-desktop" data-bp="desktop">Desktop · 1920</button>
+        <button type="button" class="fs-btn" id="fs-btn-tablet" data-bp="tablet">Tablet · 1440</button>
+        <button type="button" class="fs-btn" id="fs-btn-laptop" data-bp="laptop">Laptop · 1200</button>
+        <button type="button" class="fs-btn" id="fs-btn-fill" data-bp="fill">Fill window</button>
+      </div>
+    </div>
+    <div class="fs-float__block">
+      <span class="fs-toolbar__label">Columns</span>
+      <button type="button" class="fs-btn" id="fs-btn-3col" data-lay="3col">3-Column</button>
+      <button type="button" class="fs-btn" id="fs-btn-2col" data-lay="2col">2-Column</button>
+      <button type="button" class="fs-btn" id="fs-btn-1col" data-lay="1col">1-Column</button>
+    </div>
   </div>
   <script>
 (function(){
