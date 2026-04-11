@@ -166,6 +166,8 @@
     .layout-icon span[style*="flex:1"] { width: 10px; }
 
     .demo-canvas-wrap {
+      container-type: inline-size;
+      container-name: demo-canvas;
       padding: clamp(12px, 3vw, 20px);
       background: var(--bg-base);
       overflow-x: auto;
@@ -306,6 +308,108 @@
     @media (max-width: 600px) {
       .section-heading { margin-bottom: 14px; }
     }
+
+    /* ─── Demo stacks when preview area is narrow (container) ─── */
+    @container demo-canvas (max-width: 560px) {
+      .demo-canvas-wrap {
+        overflow-x: visible;
+      }
+      .demo-inner {
+        flex-direction: column;
+        height: auto;
+        min-height: clamp(200px, 28vmin, 360px);
+      }
+      .demo-nav {
+        width: 100% !important;
+        min-height: 44px;
+        height: auto;
+      }
+      .demo-nav-label {
+        writing-mode: horizontal-tb;
+        position: static;
+        transform: none;
+        display: block;
+        padding: 10px 12px;
+        text-align: center;
+      }
+      .demo-content-side {
+        flex: 1 1 auto;
+        min-height: 0;
+      }
+      .demo-body {
+        flex-direction: column;
+        flex: 1 1 auto;
+        gap: 10px;
+        padding: 10px;
+        overflow: visible;
+      }
+      .demo-panel,
+      .demo-panel.demo-panel--fixed,
+      .demo-panel.demo-panel--flex {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        flex: 0 0 auto !important;
+        min-height: 52px;
+        height: auto;
+      }
+      .demo-info-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+
+    /* ─── Narrow browser: page + demo (fallback where @container unsupported) ─── */
+    @media (max-width: 560px) {
+      .demo-canvas-wrap {
+        overflow-x: visible;
+      }
+      .demo-inner {
+        flex-direction: column;
+        height: auto;
+        min-height: clamp(200px, 42vw, 380px);
+      }
+      .demo-nav {
+        width: 100% !important;
+        min-height: 44px;
+        height: auto;
+      }
+      .demo-nav-label {
+        writing-mode: horizontal-tb;
+        position: static;
+        transform: none;
+        display: block;
+        padding: 10px 12px;
+        text-align: center;
+      }
+      .demo-content-side {
+        flex: 1 1 auto;
+        min-height: 0;
+      }
+      .demo-body {
+        flex-direction: column;
+        flex: 1 1 auto;
+        gap: 10px;
+        padding: 10px;
+        overflow: visible;
+      }
+      .demo-panel,
+      .demo-panel.demo-panel--fixed,
+      .demo-panel.demo-panel--flex {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        flex: 0 0 auto !important;
+        min-height: 52px;
+        height: auto;
+      }
+      .demo-info-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -392,7 +496,7 @@
                 <div class="demo-panel demo-panel--fixed demo-panel--left" id="demo-left" style="width:340px">
                   <span class="demo-panel__label">Left Panel</span>
                 </div>
-                <div class="demo-panel demo-panel--flex demo-panel--center" id="demo-center" style="min-width:968px">
+                <div class="demo-panel demo-panel--flex demo-panel--center" id="demo-center" style="min-width:0">
                   <span class="demo-panel__label">Main Content</span>
                 </div>
                 <div class="demo-panel demo-panel--fixed demo-panel--right" id="demo-right" style="width:340px">
@@ -498,6 +602,11 @@
         center.style.cssText = 'flex:1 1 0%; min-width:0;';
         center.classList.add('demo-panel--flex');
         center.classList.remove('demo-panel--fixed');
+      } else if (currentLayout === '2col') {
+        /* Left fixed + main fills remainder; no third column or dead gap */
+        center.style.cssText = 'flex:1 1 0%; min-width:0;';
+        center.classList.add('demo-panel--flex');
+        center.classList.remove('demo-panel--fixed');
       } else {
         center.style.cssText = 'width:' + bp.centerPct + '; max-width:' + bp.centerPct + '; flex-shrink:0; flex-grow:0;';
         center.classList.remove('demo-panel--flex');
@@ -511,10 +620,9 @@
         right.style.cssText = 'display:block; width:' + bp.rightPct + '; flex-shrink:0;';
         right.querySelector('.demo-panel__label').style.display = '';
       } else if (lay.rightMode === 'placeholder') {
+        /* 2-col: no right sidebar — hide completely (no ghost strip) */
         right.classList.remove('demo-panel--hidden');
-        right.style.cssText = currentBP === 'desktop'
-          ? 'display:none;'
-          : 'width:' + bp.rightPct + '; flex-shrink:0; background:rgba(60,60,64,0.25);';
+        right.style.cssText = 'display:none;';
         right.querySelector('.demo-panel__label').style.display = 'none';
       } else {
         right.classList.remove('demo-panel--hidden');
@@ -523,14 +631,17 @@
         right.querySelector('.demo-panel__label').style.display = 'none';
       }
 
-      const centerInfo = currentLayout === '2col'
-        ? bp.centerPx + 'px · max-width ' + bp.centerPx + 'px'
-        : 'min-width ' + bp.centerPx + 'px · flex-1';
+      const centerInfo =
+        currentLayout === '3col'
+          ? 'min-width ' + bp.centerPx + 'px · flex-1'
+          : currentLayout === '2col'
+            ? 'flex-1 · fills remaining (max ~' + bp.centerPx + 'px at reference width)'
+            : bp.centerPx + 'px · max-width ' + bp.centerPx + 'px';
       const leftInfo  = lay.leftVisible ? bp.leftPx + 'px (visible)' : 'hidden';
       const rightInfo = lay.rightMode === 'visible'
         ? bp.rightPx + 'px (visible)'
         : lay.rightMode === 'placeholder'
-          ? (currentBP === 'desktop' ? 'not rendered' : bp.rightPx + 'px · no fill (placeholder)')
+          ? 'not rendered'
           : bp.rightPx + 'px · no fill (placeholder)';
 
       document.getElementById('demo-layout-name').textContent = lay.name;
@@ -607,10 +718,11 @@
     .fs-float__row .fs-btn{font-size:10px;padding:6px 8px}
     .fs-float--dock .fs-btn[data-lay]{font-size:11px;padding:7px 10px}
     .fs-root{
-      height:100%;min-height:100vh;display:flex;justify-content:center;align-items:stretch;background:#111;
+      height:100%;min-height:100vh;background:#111;
     }
     .fs-app{
-      width:100%;height:100%;display:flex;flex-direction:column;padding:4px;background:#e8e8e8;
+      margin:0 auto;width:100%;height:100%;min-height:100vh;display:flex;flex-direction:column;
+      padding:4px;background:#e8e8e8;box-sizing:border-box;
     }
     .fs-row{display:flex;flex:1;min-height:0;gap:0}
     .fs-nav{flex-shrink:0;background:#d4d4d4;border-radius:6px}
@@ -687,6 +799,9 @@
     if(currentLayout === '3col'){
       center.className = 'fs-p fs-p--center fs-p--flex';
       center.style.cssText = 'flex:1 1 0%;min-width:0;';
+    }else if(currentLayout === '2col'){
+      center.className = 'fs-p fs-p--center fs-p--flex';
+      center.style.cssText = 'flex:1 1 0%;min-width:0;';
     }else{
       center.className = 'fs-p fs-p--center fs-p--fixed';
       center.style.cssText = 'width:'+bp.centerPct+';max-width:'+bp.centerPct+';flex-shrink:0;flex-grow:0;';
@@ -697,13 +812,8 @@
       right.className = 'fs-p fs-p--right';
       right.style.cssText = 'display:block;width:'+bp.rightPct+';flex-shrink:0;';
     }else if(lay.rightMode === 'placeholder'){
-      if(currentBP === 'desktop'){
-        right.className = 'fs-p fs-p--ghost';
-        right.style.cssText = 'display:none;';
-      }else{
-        right.className = 'fs-p fs-p--ghost';
-        right.style.cssText = 'width:'+bp.rightPct+';flex-shrink:0;';
-      }
+      right.className = 'fs-p fs-p--ghost';
+      right.style.cssText = 'display:none;';
     }else{
       right.className = 'fs-p fs-p--spacer';
       right.style.cssText = 'width:'+bp.rightPct+';flex-shrink:0;';
@@ -752,6 +862,14 @@
       if (w) w.opener = null;
       setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
     }
+
+    let resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        if (currentBP === 'fill') render();
+      }, 120);
+    });
 
     loadLayoutSpec().then(render);
   </script>
