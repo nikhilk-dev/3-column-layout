@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portkey Prism — Breakpoint Layout Reference</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-surface-base: #e8e8e8;
+      --color-panel:        #d4d4d4;
+      --color-content-bg:   #c8c8c8;
+
+      --bg-base:      #0c0c0e;
+      --bg-surface:   #121214;
+      --bg-card:      #18181a;
+      --bg-card-2:    #1e1e21;
+      --bg-elevated:  #242428;
+
+      --text-primary: #e4e4e7;
+      --text-muted:   #8e8e93;
+      --text-dim:     #5c5c61;
+
+      --radius-xl: 12px;
+      --radius-l:  10px;
+      --radius-m:  8px;
+      --radius-s:  6px;
+      --radius-xs: 4px;
+
+      --shadow-card: 0 2px 8px rgba(0,0,0,0.25);
+      --shadow-pop:  0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+
+    /* ─── Header ─── */
+    .doc-header {
+      background: rgba(12,12,14,0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 0 40px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 58px;
+    }
+    .doc-header__inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .doc-header__title {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+    .doc-header__logo {
+      width: 28px; height: 28px;
+      background: var(--bg-elevated);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); font-weight: 700; font-size: 12px;
+      flex-shrink: 0;
+    }
+    .doc-header__name { font-size: 14px; font-weight: 600; color: #fff; letter-spacing: -0.015em; }
+    .doc-header__sub  { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; }
+    .doc-header__meta { display: flex; gap: 7px; align-items: center; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--bg-card-2);
+      color: var(--text-muted); font-size: 11px; font-weight: 500;
+      padding: 3px 9px; border-radius: 20px;
+    }
+    .badge__dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+    /* ─── Body ─── */
+    .doc-body {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 52px 40px 80px;
+    }
+
+    /* ─── Section heading ─── */
+    .section-heading {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+
+    /* ─── Breakpoint section ─── */
+    .bp-section { margin-bottom: 68px; }
+    .bp-section__header {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+    }
+    .bp-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--bg-card);
+      border-radius: var(--radius-s); padding: 7px 14px;
+    }
+    .bp-pill__icon { font-size: 14px; }
+    .bp-pill__name { font-size: 13px; font-weight: 600; color: #e4e4e7; }
+    .bp-pill__dim  { font-size: 11px; color: var(--text-muted); }
+    .bp-pill__rule {
+      font-size: 10.5px; font-weight: 500; color: var(--text-muted);
+      background: var(--bg-card-2); padding: 2px 8px; border-radius: 4px;
+    }
+
+    /* ─── Layout cards ─── */
+    .layout-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .layout-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .layout-card:hover {
+      background: var(--bg-card-2);
+      transform: translateY(-1px);
+    }
+    .layout-card__label {
+      padding: 11px 15px;
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      background: var(--bg-card-2);
+    }
+    .layout-card__name { font-size: 12.5px; font-weight: 600; color: #e4e4e7; }
+    .layout-card__cols {
+      font-size: 10px; color: var(--text-muted);
+      background: var(--bg-surface);
+      padding: 2px 7px; border-radius: 4px; font-weight: 500; white-space: nowrap;
+    }
+    .layout-card__canvas-wrap {
+      padding: 12px;
+      background: var(--bg-surface);
+    }
+
+    /* ─── App frame mockup ─── */
+    .app-frame {
+      width: 100%;
+      aspect-ratio: var(--frame-ratio, 16/9);
+      background: var(--color-surface-base);
+      border-radius: var(--radius-m);
+      padding: 3px;
+      display: flex;
+    }
+    .app-frame__inner { display: flex; width: 100%; height: 100%; }
+    .app-nav {
+      flex-shrink: 0;
+      width: var(--nav-pct, 12%);
+      height: 100%;
+      background: var(--color-panel);
+      border-radius: 5px;
+      position: relative;
+    }
+    .app-nav::after {
+      content: "Nav";
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 7.5px; color: #777; font-weight: 600; letter-spacing: .07em;
+    }
+    .app-content-side { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .app-topbar {
+      flex-shrink: 0;
+      height: var(--topbar-pct, 8%);
+      background: var(--color-panel);
+      border-radius: 5px;
+      position: relative;
+    }
+    .app-topbar::after {
+      content: "Top Bar";
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 7.5px; color: #777; font-weight: 600;
+    }
+    .app-body {
+      flex: 1;
+      background: var(--color-content-bg);
+      border-radius: 5px;
+      padding: var(--body-pad-pct, 1.5%);
+      display: flex;
+      gap: var(--body-gap-pct, 1.5%);
+      min-height: 0;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .app-panel {
+      height: 100%;
+      background: var(--color-panel);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+    .app-panel--fixed  { flex-shrink: 0; }
+    .app-panel--flex   { flex: 1; min-width: 0; }
+    .app-panel--hidden { width: 0 !important; flex: 0 !important; overflow: hidden; }
+    .app-panel__label {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 7.5px; color: #666; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .07em; white-space: nowrap;
+    }
+    /* ─── Spec chips ─── */
+    .layout-card__specs {
+      padding: 11px 15px;
+      background: var(--bg-surface);
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .spec-row { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
+    .spec-chip {
+      font-size: 10px; padding: 2px 7px; border-radius: 4px; font-weight: 500;
+      font-family: "JetBrains Mono", monospace;
+    }
+    .spec-chip--nav,
+    .spec-chip--left,
+    .spec-chip--center,
+    .spec-chip--right { background: var(--bg-card-2); color: var(--text-muted); }
+    .spec-chip--hidden { background: var(--bg-base); color: var(--text-dim); text-decoration: line-through; opacity: 0.75; }
+    .spec-chip--dim    { background: var(--bg-card-2); color: var(--text-dim); }
+    .spec-arrow { color: #2d2d35; font-size: 10px; }
+
+    /* ─── Demo section ─── */
+    .demo-section {
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      margin-bottom: 56px;
+      box-shadow: var(--shadow-pop);
+    }
+    .demo-section__header {
+      padding: 16px 20px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      background: var(--bg-card-2);
+    }
+    .demo-section__title { font-size: 13px; font-weight: 600; color: #e4e4e7; }
+    .demo-controls { display: flex; gap: 5px; }
+    .demo-btn {
+      padding: 5px 12px; font-size: 11.5px; font-weight: 500;
+      border-radius: var(--radius-xs);
+      border: none;
+      background: var(--bg-surface); color: var(--text-muted);
+      cursor: pointer; transition: background .18s ease, color .18s ease;
+      font-family: "Inter", sans-serif; white-space: nowrap;
+    }
+    .demo-btn:hover  { color: var(--text-primary); background: var(--bg-card-2); }
+    .demo-btn.active { background: var(--bg-elevated); color: var(--text-primary); }
+    .demo-btn--fill  { color: var(--text-muted); }
+    .demo-btn--fill:hover { background: var(--bg-card-2); }
+    .demo-btn--fill.active { background: var(--bg-elevated); color: var(--text-primary); }
+    .demo-btn--layout { display: inline-flex; align-items: center; gap: 6px; }
+    .demo-btn--layout.active { background: var(--bg-elevated); color: var(--text-primary); }
+    .demo-btn--fullscreen {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--text-muted);
+    }
+    .demo-btn--fullscreen:hover { background: var(--bg-card-2); color: var(--text-primary); }
+    .layout-icon { display: inline-flex; gap: 2px; align-items: stretch; height: 9px; }
+    .layout-icon span { display: block; width: 3px; background: currentColor; border-radius: 1px; opacity: .7; }
+    .layout-icon span[style*="flex:1"] { width: 10px; }
+
+    .demo-canvas-wrap { padding: 20px; background: var(--bg-base); overflow: hidden; }
+    .fill-badge {
+      display: none; align-items: center; gap: 8px;
+      background: var(--bg-card-2);
+      border-radius: var(--radius-xs); padding: 6px 12px;
+      font-size: 11px; font-weight: 500; color: var(--text-muted); margin-bottom: 14px;
+    }
+    .fill-badge.visible { display: flex; }
+    .fill-badge__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-dim); animation: pulse 1.5s infinite; flex-shrink: 0; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+    .demo-viewport {
+      background: var(--bg-card);
+      border-radius: var(--radius-l);
+      overflow: hidden;
+      transition: max-width .45s cubic-bezier(.4,0,.2,1);
+      margin: 0 auto;
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+    }
+    .demo-viewport__bar {
+      background: var(--bg-card-2);
+      padding: 9px 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .demo-viewport__dot { width: 9px; height: 9px; border-radius: 50%; }
+    .demo-viewport__url {
+      flex: 1; background: var(--bg-base); border-radius: var(--radius-xs);
+      padding: 4px 10px; font-size: 10.5px; color: var(--text-dim);
+      font-family: "JetBrains Mono", monospace;
+    }
+    .demo-viewport__size-label {
+      font-size: 10.5px; color: #2d2d35; margin-left: auto;
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    .demo-inner {
+      padding: 4px; background: var(--color-surface-base);
+      height: 520px; display: flex;
+    }
+    .demo-nav {
+      flex-shrink: 0; background: var(--color-panel);
+      border-radius: 6px;
+      transition: width .4s cubic-bezier(.4,0,.2,1);
+      position: relative; overflow: hidden;
+    }
+    .demo-nav-label {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 9.5px; font-weight: 600; color: #888;
+      white-space: nowrap; writing-mode: vertical-rl;
+    }
+    .demo-content-side { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .demo-topbar {
+      flex-shrink: 0; height: 44px;
+      background: var(--color-panel); border-radius: 6px;
+      display: flex; align-items: center; padding: 0 14px; gap: 8px;
+    }
+    .demo-topbar-label { font-size: 9.5px; font-weight: 600; color: #888; }
+    .demo-body {
+      flex: 1; background: var(--color-content-bg); border-radius: 6px;
+      padding: 16px; display: flex; gap: 16px; min-height: 0; min-width: 0;
+      overflow: hidden;
+    }
+    .demo-panel {
+      height: 100%; background: var(--color-panel); border-radius: 5px;
+      position: relative;
+      transition: width .4s cubic-bezier(.4,0,.2,1), flex .4s cubic-bezier(.4,0,.2,1), opacity .3s ease;
+      overflow: hidden;
+    }
+    .demo-panel--flex { flex: 1; min-width: 0; }
+    .demo-panel--fixed { flex-shrink: 0; }
+    .demo-panel--hidden { width: 0 !important; flex: 0 !important; opacity: 0; padding: 0; }
+    .demo-panel__label {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 10px; font-weight: 700; color: #777;
+      text-transform: uppercase; letter-spacing: .07em; white-space: nowrap;
+    }
+    .demo-info-bar {
+      background: var(--bg-card-2);
+      padding: 8px 16px;
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    }
+    .demo-info-item { font-size: 10.5px; color: #3f3f46; font-family: "JetBrains Mono", monospace; }
+    .demo-info-item strong { color: #71717a; font-weight: 500; }
+
+    /* ─── Legend ─── */
+    .legend {
+      display: flex; gap: 20px; flex-wrap: wrap;
+      padding: 13px 20px;
+      background: var(--bg-surface);
+    }
+    .legend-item { display: flex; align-items: center; gap: 7px; }
+    .legend-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .legend-label { font-size: 11px; color: var(--text-muted); }
+
+    /* ─── Spec table ─── */
+    .spec-table-wrap {
+      background: var(--bg-card);
+      border-radius: var(--radius-xl); overflow: hidden;
+      margin-bottom: 56px; box-shadow: var(--shadow-card);
+    }
+    .spec-table-wrap table { width: 100%; border-collapse: collapse; }
+    .spec-table-wrap th {
+      text-align: left; padding: 11px 16px;
+      font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--text-dim); background: var(--bg-card-2);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .spec-table-wrap td {
+      padding: 11px 16px; font-size: 12px; color: #a1a1aa;
+      border-bottom: 1px solid var(--border-subtle); vertical-align: top;
+    }
+    .spec-table-wrap tr:last-child td { border-bottom: none; }
+    .spec-table-wrap tr:hover td { background: rgba(255,255,255,.018); }
+    code {
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      padding: 1px 6px; border-radius: 4px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px; color: #a78bfa;
+    }
+
+    /* ─── Figma link ─── */
+    .figma-source {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--bg-card-2); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-s); padding: 6px 12px;
+      font-size: 11.5px; font-weight: 500; color: var(--text-muted);
+      text-decoration: none; transition: all .18s ease;
+    }
+    .figma-source:hover { border-color: var(--border-muted); color: var(--text-primary); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .layout-cards { grid-template-columns: 1fr; }
+      .doc-body { padding: 28px 20px 60px; }
+    }
+    @media (max-width: 600px) {
+      .doc-header { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="doc-header">
+    <div class="doc-header__inner">
+      <div class="doc-header__title">
+        <div class="doc-header__logo">P</div>
+        <div>
+          <div class="doc-header__name">Portkey Prism — Model Catalog</div>
+          <div class="doc-header__sub">Breakpoint &amp; Layout Reference · Figma node <code style="background:none;border:none;color:#3f3f46;padding:0;font-size:11px">7422:11338</code></div>
+        </div>
+      </div>
+      <div class="doc-header__meta">
+        <span class="badge"><span class="badge__dot" style="background:#22c55e"></span>3 Screen Sizes</span>
+        <span class="badge"><span class="badge__dot" style="background:#7c5af6"></span>3 Layouts</span>
+        <a href="https://www.figma.com/design/oyKbb6Ht7G7w42ZCO03k4l/Portkey-Prism?node-id=7422-11338" target="_blank" class="figma-source">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect width="14" height="14" rx="3" fill="#1E1E1E"/><path d="M7 2H5a2 2 0 0 0 0 4h2V2Z" fill="#F24E1E"/><path d="M7 6H5a2 2 0 0 0 0 4h2V6Z" fill="#A259FF"/><path d="M7 10H5a2 2 0 1 0 0 4V12h2v-2Z" fill="#0ACF83"/><path d="M7 2h2a2 2 0 0 1 0 4H7V2Z" fill="#FF7262"/><path d="M7 6h2a2 2 0 0 1 0 4H7V6Z" fill="#1ABCFE"/></svg>
+          View in Figma
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="doc-body">
+
+    <!-- ── Live interactive demo ── -->
+    <div class="section-heading">Interactive Demo</div>
+
+    <div class="demo-section" id="demo-section">
+      <div class="demo-section__header">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span class="demo-section__title">Responsive Layout Preview</span>
+          <button type="button" class="demo-btn demo-btn--fullscreen" onclick="openFullScreen()" style="align-self:flex-start">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8"/></svg>
+            Open layout in new tab
+          </button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+          <div class="demo-controls" style="display:flex;gap:5px;align-items:center">
+            <span style="font-size:10px;color:var(--text-dim);margin-right:2px;white-space:nowrap;font-weight:600;letter-spacing:.08em;text-transform:uppercase">Screen</span>
+            <button class="demo-btn active" onclick="setBreakpoint('desktop')" id="btn-desktop">🖥 Desktop · 1920px</button>
+            <button class="demo-btn" onclick="setBreakpoint('tablet')" id="btn-tablet">💻 Tablet · 1440px</button>
+            <button class="demo-btn" onclick="setBreakpoint('laptop')" id="btn-laptop">📟 Laptop · 1200px</button>
+            <button class="demo-btn demo-btn--fill" onclick="setBreakpoint('fill')" id="btn-fill">⛶ Fill Screen</button>
+          </div>
+          <div class="demo-controls" style="display:flex;gap:5px;align-items:center">
+            <span style="font-size:10px;color:var(--text-dim);margin-right:2px;white-space:nowrap;font-weight:600;letter-spacing:.08em;text-transform:uppercase">Layout</span>
+            <button class="demo-btn demo-btn--layout active" onclick="setLayout('3col')" id="btn-3col">
+              <span class="layout-icon"><span></span><span></span><span></span></span> 3-Column
+            </button>
+            <button class="demo-btn demo-btn--layout" onclick="setLayout('2col')" id="btn-2col">
+              <span class="layout-icon"><span></span><span></span></span> 2-Column
+            </button>
+            <button class="demo-btn demo-btn--layout" onclick="setLayout('1col')" id="btn-1col">
+              <span class="layout-icon"><span style="flex:1"></span></span> 1-Column
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="demo-canvas-wrap">
+        <div class="fill-badge" id="fill-badge">
+          <span class="fill-badge__dot"></span>
+          Showing your actual screen width · <strong id="fill-badge-size"></strong> · Laptop layout (1-column)
+        </div>
+        <div class="demo-viewport" id="demo-viewport" style="max-width:100%">
+          <div class="demo-viewport__bar">
+            <div class="demo-viewport__dot" style="background:#ff5f57"></div>
+            <div class="demo-viewport__dot" style="background:#febc2e"></div>
+            <div class="demo-viewport__dot" style="background:#28c840"></div>
+            <div class="demo-viewport__url">portkey.ai / model-catalog</div>
+            <div class="demo-viewport__size-label" id="demo-size-label">1920 × 1080</div>
+          </div>
+          <div class="demo-inner">
+            <div class="demo-nav" id="demo-nav" style="width:200px">
+              <span class="demo-nav-label">Navigation</span>
+            </div>
+            <div class="demo-content-side">
+              <div class="demo-topbar">
+                <span class="demo-topbar-label">Top Bar</span>
+              </div>
+              <div class="demo-body">
+                <div class="demo-panel demo-panel--fixed demo-panel--left" id="demo-left" style="width:340px">
+                  <span class="demo-panel__label">Left Panel</span>
+                </div>
+                <div class="demo-panel demo-panel--flex demo-panel--center" id="demo-center" style="min-width:968px">
+                  <span class="demo-panel__label">Main Content</span>
+                </div>
+                <div class="demo-panel demo-panel--fixed demo-panel--right" id="demo-right" style="width:340px">
+                  <span class="demo-panel__label">Right Panel</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-info-bar" id="demo-info-bar">
+            <span class="demo-info-item"><strong>Layout:</strong> <span id="demo-layout-name">3-Column</span></span>
+            <span class="demo-info-item"><strong>Nav:</strong> <span id="demo-info-nav">200px</span></span>
+            <span class="demo-info-item"><strong>Left:</strong> <span id="demo-info-left">340px (visible)</span></span>
+            <span class="demo-info-item"><strong>Center:</strong> <span id="demo-info-center">min-width 968px · flex-1</span></span>
+            <span class="demo-info-item"><strong>Right:</strong> <span id="demo-info-right">340px (visible)</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-swatch" style="background:#7c5af6"></div><span class="legend-label">Nav sidebar (always 200px)</span></div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#7c5af6;opacity:.5"></div><span class="legend-label">Left panel</span></div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#0ea5e9;opacity:.5"></div><span class="legend-label">Center / Main content (flex-1)</span></div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#f59e0b;opacity:.5"></div><span class="legend-label">Right panel</span></div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#222;border:1px dashed #3f3f46"></div><span class="legend-label">Hidden / collapsed</span></div>
+      </div>
+    </div>
+
+    <!-- ── Desktop breakpoint ── -->
+    <div class="section-heading">Desktop · 1920 × 1080</div>
+    <div class="bp-section">
+      <div class="bp-section__header">
+        <div class="bp-pill">
+          <span class="bp-pill__icon">🖥️</span>
+          <span class="bp-pill__name">Desktop</span>
+          <span class="bp-pill__dim">1920 × 1080 px</span>
+          <span class="bp-pill__rule">≥ 1920px</span>
+        </div>
+        <span style="color:var(--text-muted);font-size:12px">All three content panels visible · App container padding: 4px · Border radius: 10px</span>
+      </div>
+      <div class="layout-cards">
+
+        <div class="layout-card">
+          <div class="layout-card__label">
+            <span class="layout-card__name">3-Column Layout</span>
+            <span class="layout-card__cols">Left + Center + Right</span>
+          </div>
+          <div class="layout-card__canvas-wrap">
+            <div class="app-frame" style="--frame-ratio:16/9">
+              <div class="app-frame__inner">
+                <div class="app-nav" style="--nav-pct:11.5%"></div>
+                <div class="app-content-side">
+                  <div class="app-topbar" style="--topbar-pct:6%"></div>
+                  <div class="app-body">
+                    <div class="app-panel app-panel--fixed app-panel--left" style="width:19.6%"><span class="app-panel__label">Left</span></div>
+                    <div class="app-panel app-panel--flex app-panel--center"><span class="app-panel__label">Center</span></div>
+                    <div class="app-panel app-panel--fixed app-panel--right" style="width:19.6%"><span class="app-panel__label">Right</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layout-card__specs">
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--nav">Nav 200px</span>
+              <span class="spec-arrow">→</span>
+              <span class="spec-chip spec-chip--left">Left 340px</span>
+              <span class="spec-arrow">+</span>
+              <span class="spec-chip spec-chip--center">Center min-width 968px</span>
+              <span class="spec-arrow">+</span>
+              <span class="spec-chip spec-chip--right">Right 340px</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--dim">Gap 16px</span>
+              <span class="spec-chip spec-chip--dim">Padding 16px</span>
+              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout-card">
+          <div class="layout-card__label">
+            <span class="layout-card__name">2-Column Layout</span>
+            <span class="layout-card__cols">Left + Center · Right not rendered</span>
+          </div>
+          <div class="layout-card__canvas-wrap">
+            <div class="app-frame" style="--frame-ratio:16/9">
+              <div class="app-frame__inner">
+                <div class="app-nav" style="--nav-pct:11.5%"></div>
+                <div class="app-content-side">
+                  <div class="app-topbar" style="--topbar-pct:6%"></div>
+                  <div class="app-body">
+                    <div class="app-panel app-panel--fixed app-panel--left" style="width:19.6%"><span class="app-panel__label">Left</span></div>
+                    <div class="app-panel app-panel--fixed app-panel--center" style="width:55.8%;max-width:55.8%"><span class="app-panel__label">Center</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layout-card__specs">
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--nav">Nav 200px</span>
+              <span class="spec-arrow">→</span>
+              <span class="spec-chip spec-chip--left">Left 340px</span>
+              <span class="spec-arrow">+</span>
+              <span class="spec-chip spec-chip--center">Center 968px · max-width 968px</span>
+              <span class="spec-arrow">+</span>
+              <span class="spec-chip spec-chip--hidden">Right not rendered</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--dim">Gap 16px</span>
+              <span class="spec-chip spec-chip--dim">Padding 16px</span>
+              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout-card">
+          <div class="layout-card__label">
+            <span class="layout-card__name">1-Column Layout</span>
+            <span class="layout-card__cols">Center only · Both panels hidden</span>
+          </div>
+          <div class="layout-card__canvas-wrap">
+            <div class="app-frame" style="--frame-ratio:16/9">
+              <div class="app-frame__inner">
+                <div class="app-nav" style="--nav-pct:11.5%"></div>
+                <div class="app-content-side">
+                  <div class="app-topbar" style="--topbar-pct:6%"></div>
+                  <div class="app-body">
+                    <div class="app-panel app-panel--hidden"></div>
+                    <div class="app-panel app-panel--flex app-panel--center"><span class="app-panel__label">Center</span></div>
+                    <div class="app-panel app-panel--hidden"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layout-card__specs">
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--nav">Nav 200px</span>
+              <span class="spec-arrow">→</span>
+              <span class="spec-chip spec-chip--hidden">Left hidden</span>
+              <span class="spec-arrow">+</span>
+              <span class="spec-chip spec-chip--center">Center min-width 968px</span>
+              <span class="spec-arrow">+</span>
+              <span class="spec-chip spec-chip--hidden">Right hidden</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--dim">Gap 16px</span>
+              <span class="spec-chip spec-chip--dim">Padding 16px</span>
+              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Tablet breakpoint ── -->
+    <div class="section-heading">Tablet · 1440 × 900</div>
+    <div class="bp-section">
+      <div class="bp-section__header">
+        <div class="bp-pill">
+          <span class="bp-pill__icon">💻</span>
+          <span class="bp-pill__name">Tablet / Laptop-L</span>
+          <span class="bp-pill__dim">1440 × 900 px</span>
+          <span class="bp-pill__rule">≥ 1440px &lt; 1920px</span>
+        </div>
+        <span style="color:var(--text-muted);font-size:12px">Side panels scale down to 220px · Container shrinks proportionally</span>
+      </div>
+      <div class="layout-cards">
+
+        <div class="layout-card">
+          <div class="layout-card__label">
+            <span class="layout-card__name">3-Column Layout</span>
+            <span class="layout-card__cols">Left + Center + Right</span>
+          </div>
+          <div class="layout-card__canvas-wrap">
+            <div class="app-frame" style="--frame-ratio:1440/900">
+              <div class="app-frame__inner">
+                <div class="app-nav" style="--nav-pct:14.3%"></div>
+                <div class="app-content-side">
+                  <div class="app-topbar" style="--topbar-pct:6%"></div>
+                  <div class="app-body">
+                    <div class="app-panel app-panel--fixed app-panel--left" style="width:17.5%"><span class="app-panel__label">Left</span></div>
+                    <div class="app-panel app-panel--flex app-panel--center"><span class="app-panel__label">Center</span></div>
+                    <div class="app-panel app-panel--fixed app-panel--right" style="width:17.5%"><span class="app-panel__label">Right</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layout-card__specs">
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--nav">Nav 200px</span>
+              <span class="spec-chip spec-chip--left">Left 220px</span>
+              <span class="spec-chip spec-chip--center">Center min-width 728px</span>
+              <span class="spec-chip spec-chip--right">Right 220px</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--dim">Gap 16px</span>
+              <span class="spec-chip spec-chip--dim">Padding 16px</span>
+              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout-card">
+          <div class="layout-card__label">
+            <span class="layout-card__name">2-Column Layout</span>
+            <span class="layout-card__cols">Left + Center · Right invisible placeholder</span>
+          </div>
+          <div class="layout-card__canvas-wrap">
+            <div class="app-frame" style="--frame-ratio:1440/900">
+              <div class="app-frame__inner">
+                <div class="app-nav" style="--nav-pct:14.3%"></div>
+                <div class="app-content-side">
+                  <div class="app-topbar" style="--topbar-pct:6%"></div>
+                  <div class="app-body">
+                    <div class="app-panel app-panel--fixed app-panel--left" style="width:17.5%"><span class="app-panel__label">Left</span></div>
+                    <div class="app-panel app-panel--fixed app-panel--center" style="width:57.5%;max-width:57.5%"><span class="app-panel__label">Center</span></div>
+                    <div class="app-panel app-panel--fixed" style="width:17.5%;background:transparent;border-color:transparent"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layout-card__specs">
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--nav">Nav 200px</span>
+              <span class="spec-chip spec-chip--left">Left 220px</span>
+              <span class="spec-chip spec-chip--center">Center 728px · max-width 728px</span>
+              <span class="spec-chip spec-chip--hidden">Right 220px · no fill</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--dim">Gap 16px</span>
+              <span class="spec-chip spec-chip--dim">Padding 16px</span>
+              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout-card">
+          <div class="layout-card__label">
+            <span class="layout-card__name">1-Column Layout</span>
+            <span class="layout-card__cols">Center only · Both panels hidden</span>
+          </div>
+          <div class="layout-card__canvas-wrap">
+            <div class="app-frame" style="--frame-ratio:1440/900">
+              <div class="app-frame__inner">
+                <div class="app-nav" style="--nav-pct:14.3%"></div>
+                <div class="app-content-side">
+                  <div class="app-topbar" style="--topbar-pct:6%"></div>
+                  <div class="app-body">
+                    <div class="app-panel app-panel--hidden"></div>
+                    <div class="app-panel app-panel--flex app-panel--center"><span class="app-panel__label">Center</span></div>
+                    <div class="app-panel app-panel--hidden"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layout-card__specs">
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--nav">Nav 200px</span>
+              <span class="spec-chip spec-chip--hidden">Left hidden</span>
+              <span class="spec-chip spec-chip--center">Center min-width 728px</span>
+              <span class="spec-chip spec-chip--hidden">Right hidden</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--dim">Gap 16px</span>
+              <span class="spec-chip spec-chip--dim">Padding 16px</span>
+              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Laptop breakpoint ── -->
+    <div class="section-heading">Laptop · 1200 × 800</div>
+    <div class="bp-section">
+      <div class="bp-section__header">
+        <div class="bp-pill">
+          <span class="bp-pill__icon">📟</span>
+          <span class="bp-pill__name">Laptop / Small</span>
+          <span class="bp-pill__dim">1200 × 800 px</span>
+          <span class="bp-pill__rule">≥ 1200px &lt; 1440px</span>
+        </div>
+        <span style="color:var(--text-muted);font-size:12px">Side panels scale down to 200px · Center min-width 528px</span>
+      </div>
+      <div class="layout-cards">
+
+        <div class="layout-card">
+          <div class="layout-card__label">
+            <span class="layout-card__name">3-Column Layout</span>
+            <span class="layout-card__cols">Left + Center + Right</span>
+          </div>
+          <div class="layout-card__canvas-wrap">
+            <div class="app-frame" style="--frame-ratio:1200/800">
+              <div class="app-frame__inner">
+                <div class="app-nav" style="--nav-pct:17%"></div>
+                <div class="app-content-side">
+                  <div class="app-topbar" style="--topbar-pct:6.5%"></div>
+                  <div class="app-body">
+                    <div class="app-panel app-panel--fixed app-panel--left" style="width:17%"><span class="app-panel__label">Left</span></div>
+                    <div class="app-panel app-panel--flex app-panel--center"><span class="app-panel__label">Center</span></div>
+                    <div class="app-panel app-panel--fixed app-panel--right" style="width:17%"><span class="app-panel__label">Right</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layout-card__specs">
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--nav">Nav 200px</span>
+              <span class="spec-chip spec-chip--left">Left 200px</span>
+              <span class="spec-chip spec-chip--center">Center min-width 528px</span>
+              <span class="spec-chip spec-chip--right">Right 200px</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--dim">Gap 16px</span>
+              <span class="spec-chip spec-chip--dim">Padding 16px</span>
+              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout-card">
+          <div class="layout-card__label">
+            <span class="layout-card__name">2-Column Layout</span>
+            <span class="layout-card__cols">Left + Center · Right invisible placeholder</span>
+          </div>
+          <div class="layout-card__canvas-wrap">
+            <div class="app-frame" style="--frame-ratio:1200/800">
+              <div class="app-frame__inner">
+                <div class="app-nav" style="--nav-pct:17%"></div>
+                <div class="app-content-side">
+                  <div class="app-topbar" style="--topbar-pct:6.5%"></div>
+                  <div class="app-body">
+                    <div class="app-panel app-panel--fixed app-panel--left" style="width:17%"><span class="app-panel__label">Left</span></div>
+                    <div class="app-panel app-panel--fixed app-panel--center" style="width:55%;max-width:55%"><span class="app-panel__label">Center</span></div>
+                    <div class="app-panel app-panel--fixed" style="width:17%;background:transparent;border-color:transparent"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layout-card__specs">
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--nav">Nav 200px</span>
+              <span class="spec-chip spec-chip--left">Left 200px</span>
+              <span class="spec-chip spec-chip--center">Center 528px · max-width 528px</span>
+              <span class="spec-chip spec-chip--hidden">Right 200px · no fill</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--dim">Gap 16px</span>
+              <span class="spec-chip spec-chip--dim">Padding 16px</span>
+              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout-card">
+          <div class="layout-card__label">
+            <span class="layout-card__name">1-Column Layout</span>
+            <span class="layout-card__cols">Center only · Both panels hidden</span>
+          </div>
+          <div class="layout-card__canvas-wrap">
+            <div class="app-frame" style="--frame-ratio:1200/800">
+              <div class="app-frame__inner">
+                <div class="app-nav" style="--nav-pct:17%"></div>
+                <div class="app-content-side">
+                  <div class="app-topbar" style="--topbar-pct:6.5%"></div>
+                  <div class="app-body">
+                    <div class="app-panel app-panel--hidden"></div>
+                    <div class="app-panel app-panel--flex app-panel--center"><span class="app-panel__label">Center</span></div>
+                    <div class="app-panel app-panel--hidden"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layout-card__specs">
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--nav">Nav 200px</span>
+              <span class="spec-chip spec-chip--hidden">Left hidden</span>
+              <span class="spec-chip spec-chip--center">Center min-width 528px</span>
+              <span class="spec-chip spec-chip--hidden">Right hidden</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-chip spec-chip--dim">Gap 16px</span>
+              <span class="spec-chip spec-chip--dim">Padding 16px</span>
+              <span class="spec-chip spec-chip--dim">Top bar 44px</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Pixel-precise spec table ── -->
+    <div class="section-heading">Pixel-Precise Spec Table</div>
+    <div class="spec-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Screen</th>
+            <th>Viewport</th>
+            <th>Nav Sidebar</th>
+            <th>Left Panel</th>
+            <th>Center</th>
+            <th>Right Panel</th>
+            <th>Content Padding</th>
+            <th>Panel Gap</th>
+            <th>Top Bar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:#e4e4e7;font-weight:600">Desktop</strong></td>
+            <td><code>1920 × 1080</code></td>
+            <td><code>200px</code></td>
+            <td><code>340px</code></td>
+            <td><code>min-width: 968px</code> (3-col) · <code>968px max-width: 968px</code> (2-col)</td>
+            <td><code>340px</code></td>
+            <td><code>16px</code></td>
+            <td><code>16px</code></td>
+            <td><code>44px</code></td>
+          </tr>
+          <tr>
+            <td><strong style="color:#e4e4e7;font-weight:600">Tablet</strong></td>
+            <td><code>1440 × 900</code></td>
+            <td><code>200px</code></td>
+            <td><code>220px</code></td>
+            <td><code>min-width: 728px</code> (3-col) · <code>728px max-width: 728px</code> (2-col)</td>
+            <td><code>220px</code></td>
+            <td><code>16px</code></td>
+            <td><code>16px</code></td>
+            <td><code>44px</code></td>
+          </tr>
+          <tr>
+            <td><strong style="color:#e4e4e7;font-weight:600">Laptop</strong></td>
+            <td><code>1200 × 800</code></td>
+            <td><code>200px</code></td>
+            <td><code>200px</code></td>
+            <td><code>min-width: 528px</code> (3-col) · <code>528px max-width: 528px</code> (2-col)</td>
+            <td><code>200px</code></td>
+            <td><code>16px</code></td>
+            <td><code>16px</code></td>
+            <td><code>44px</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── CSS media query reference ── -->
+    <div class="section-heading">CSS Media Query Reference</div>
+    <div class="spec-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Breakpoint</th>
+            <th>Media Query</th>
+            <th>Layout State</th>
+            <th>Side Panel Width</th>
+            <th>Behaviour</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:#e4e4e7;font-weight:600">Desktop (3-col)</strong></td>
+            <td><code>@media (min-width: 1920px)</code></td>
+            <td>3-Column</td>
+            <td>Left <code>340px</code> · Right <code>340px</code></td>
+            <td>Both panels visible · center min-width 968px (3-col)</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#e4e4e7;font-weight:600">Tablet (2-col)</strong></td>
+            <td><code>@media (min-width: 1440px) and (max-width: 1919px)</code></td>
+            <td>2-Column</td>
+            <td>Left <code>220px</code> · Right <code>display:none</code></td>
+            <td>Right invisible placeholder · center max-width 728px · desktop removes right entirely</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#e4e4e7;font-weight:600">Laptop (1-col)</strong></td>
+            <td><code>@media (max-width: 1439px)</code></td>
+            <td>1-Column</td>
+            <td>Left <code>display:none</code> · Right <code>display:none</code></td>
+            <td>Both panels hidden · center min-width 528px (1-col)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── Footer ── -->
+    <div style="text-align:center;padding:40px 0 0;color:var(--text-dim);font-size:11.5px">
+      Portkey Prism · Model Catalog · Layout Reference ·
+      <a href="https://www.figma.com/design/oyKbb6Ht7G7w42ZCO03k4l/Portkey-Prism?node-id=7422-11338" target="_blank" style="color:var(--accent);text-decoration:none">View Figma source</a>
+    </div>
+
+  </div>
+
+  <script>
+    const breakpoints = {
+      desktop: {
+        viewportPct: 100, sizeLabel: '1920 × 1080',
+        navPx: 200, leftPx: 340, centerPx: 968, rightPx: 340,
+        navPct: '11.5%', leftPct: '20.24%', centerPct: '57.62%', rightPct: '20.24%',
+      },
+      tablet: {
+        viewportPct: 75, sizeLabel: '1440 × 900',
+        navPx: 200, leftPx: 220, centerPx: 728, rightPx: 220,
+        navPct: '14.3%', leftPct: '18.33%', centerPct: '60.67%', rightPct: '18.33%',
+      },
+      laptop: {
+        viewportPct: 62.5, sizeLabel: '1200 × 800',
+        navPx: 200, leftPx: 200, centerPx: 528, rightPx: 200,
+        navPct: '17%', leftPct: '20.83%', centerPct: '55%', rightPct: '20.83%',
+      },
+      fill: {
+        viewportPct: 100, sizeLabel: '',
+        navPx: 200, leftPx: 200, centerPx: 528, rightPx: 200,
+        navPct: '17%', leftPct: '20.83%', centerPct: '55%', rightPct: '20.83%',
+      },
+    };
+
+    const layouts = {
+      '3col': { name: '3-Column', leftVisible: true,  rightMode: 'visible'     },
+      '2col': { name: '2-Column', leftVisible: true,  rightMode: 'placeholder' },
+      '1col': { name: '1-Column', leftVisible: false, rightMode: 'invisible'   },
+    };
+
+    let currentBP     = 'desktop';
+    let currentLayout = '3col';
+
+    function render() {
+      const bp  = breakpoints[currentBP];
+      const lay = layouts[currentLayout];
+
+      if (currentBP === 'fill') {
+        bp.sizeLabel = window.innerWidth + ' × ' + window.innerHeight + ' (your screen)';
+      }
+
+      document.getElementById('demo-viewport').style.maxWidth = bp.viewportPct + '%';
+      document.getElementById('demo-size-label').textContent  = bp.sizeLabel;
+      document.getElementById('demo-nav').style.width = bp.navPct;
+
+      const left = document.getElementById('demo-left');
+      if (lay.leftVisible) {
+        left.classList.remove('demo-panel--hidden');
+        left.classList.add('demo-panel--left');
+        left.style.cssText = 'display:block; width:' + bp.leftPct + '; flex-shrink:0;';
+        left.querySelector('.demo-panel__label').style.display = '';
+      } else {
+        left.classList.remove('demo-panel--hidden');
+        left.classList.remove('demo-panel--left');
+        left.style.cssText = 'width:' + bp.leftPct + '; flex-shrink:0; background:transparent !important; border:none !important; box-shadow:none !important;';
+        left.querySelector('.demo-panel__label').style.display = 'none';
+      }
+
+      const center = document.getElementById('demo-center');
+      if (currentLayout === '3col') {
+        /* flex:1 fills space between left/right; % min-width + gap caused overflow and ate padding */
+        center.style.cssText = 'flex:1 1 0%; min-width:0;';
+        center.classList.add('demo-panel--flex');
+        center.classList.remove('demo-panel--fixed');
+      } else {
+        center.style.cssText = 'width:' + bp.centerPct + '; max-width:' + bp.centerPct + '; flex-shrink:0; flex-grow:0;';
+        center.classList.remove('demo-panel--flex');
+        center.classList.add('demo-panel--fixed');
+      }
+
+      const right = document.getElementById('demo-right');
+      if (lay.rightMode === 'visible') {
+        right.classList.remove('demo-panel--hidden');
+        right.classList.add('demo-panel--right');
+        right.style.cssText = 'display:block; width:' + bp.rightPct + '; flex-shrink:0;';
+        right.querySelector('.demo-panel__label').style.display = '';
+      } else if (lay.rightMode === 'placeholder') {
+        right.classList.remove('demo-panel--hidden');
+        right.style.cssText = currentBP === 'desktop'
+          ? 'display:none;'
+          : 'width:' + bp.rightPct + '; flex-shrink:0; background:transparent; border:1px dashed rgba(150,150,150,0.2);';
+        right.querySelector('.demo-panel__label').style.display = 'none';
+      } else {
+        right.classList.remove('demo-panel--hidden');
+        right.classList.remove('demo-panel--right');
+        right.style.cssText = 'width:' + bp.rightPct + '; flex-shrink:0; background:transparent !important; border:none !important; box-shadow:none !important;';
+        right.querySelector('.demo-panel__label').style.display = 'none';
+      }
+
+      const centerInfo = currentLayout === '2col'
+        ? bp.centerPx + 'px · max-width ' + bp.centerPx + 'px'
+        : 'min-width ' + bp.centerPx + 'px · flex-1';
+      const leftInfo  = lay.leftVisible ? bp.leftPx + 'px (visible)' : 'hidden';
+      const rightInfo = lay.rightMode === 'visible'
+        ? bp.rightPx + 'px (visible)'
+        : lay.rightMode === 'placeholder'
+          ? (currentBP === 'desktop' ? 'not rendered' : bp.rightPx + 'px · no fill (placeholder)')
+          : bp.rightPx + 'px · no fill (placeholder)';
+
+      document.getElementById('demo-layout-name').textContent = lay.name;
+      document.getElementById('demo-info-nav').textContent    = bp.navPx + 'px';
+      document.getElementById('demo-info-left').textContent   = leftInfo;
+      document.getElementById('demo-info-center').textContent = centerInfo;
+      document.getElementById('demo-info-right').textContent  = rightInfo;
+
+      const badge = document.getElementById('fill-badge');
+      if (currentBP === 'fill') {
+        badge.classList.add('visible');
+        document.getElementById('fill-badge-size').textContent = window.innerWidth + ' × ' + window.innerHeight + 'px';
+      } else {
+        badge.classList.remove('visible');
+      }
+
+      ['desktop','tablet','laptop','fill'].forEach(k =>
+        document.getElementById('btn-' + k).classList.toggle('active', k === currentBP));
+      ['3col','2col','1col'].forEach(k =>
+        document.getElementById('btn-' + k).classList.toggle('active', k === currentLayout));
+    }
+
+    function setBreakpoint(bp) { currentBP = bp; render(); }
+    function setLayout(layout) { currentLayout = layout; render(); }
+
+    /** Opens a new tab with only the layout (no chrome, no controls). Uses current Screen + Layout. */
+    function openFullScreen() {
+      const bpKey = currentBP;
+      const bp    = breakpoints[bpKey];
+      const lay   = layouts[currentLayout];
+
+      let navStyle = 'width:' + bp.navPct + ';';
+      let leftHtml = '';
+      if (lay.leftVisible) {
+        leftHtml =
+          '<div class="fs-p fs-p--left" style="' +
+          'display:block;width:' + bp.leftPct + ';flex-shrink:0;' +
+          '"></div>';
+      } else {
+        leftHtml =
+          '<div class="fs-p fs-p--spacer" style="' +
+          'width:' + bp.leftPct + ';flex-shrink:0;' +
+          '"></div>';
+      }
+
+      let centerHtml = '';
+      if (currentLayout === '3col') {
+        centerHtml =
+          '<div class="fs-p fs-p--center fs-p--flex" style="' +
+          'flex:1 1 0%;min-width:0;' +
+          '"></div>';
+      } else {
+        centerHtml =
+          '<div class="fs-p fs-p--center fs-p--fixed" style="' +
+          'width:' + bp.centerPct + ';max-width:' + bp.centerPct + ';flex-shrink:0;flex-grow:0;' +
+          '"></div>';
+      }
+
+      let rightHtml = '';
+      if (lay.rightMode === 'visible') {
+        rightHtml =
+          '<div class="fs-p fs-p--right" style="' +
+          'display:block;width:' + bp.rightPct + ';flex-shrink:0;' +
+          '"></div>';
+      } else if (lay.rightMode === 'placeholder') {
+        if (bpKey === 'desktop') {
+          rightHtml = '';
+        } else {
+          rightHtml =
+            '<div class="fs-p fs-p--ghost" style="' +
+            'width:' + bp.rightPct + ';flex-shrink:0;' +
+            '"></div>';
+        }
+      } else {
+        rightHtml =
+          '<div class="fs-p fs-p--spacer" style="' +
+          'width:' + bp.rightPct + ';flex-shrink:0;' +
+          '"></div>';
+      }
+
+      const viewportMax = bp.viewportPct + '%';
+      const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout preview</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;overflow:hidden}
+    body{background:#111}
+    .fs-root{min-height:100%;display:flex;justify-content:center;align-items:stretch;background:#111}
+    .fs-app{
+      width:100%;max-width:${viewportMax};height:100vh;
+      display:flex;flex-direction:column;padding:4px;background:#fafafa;
+    }
+    .fs-row{display:flex;flex:1;min-height:0;gap:0}
+    .fs-nav{
+      flex-shrink:0;background:#d9d9d9;border-radius:6px;border:1px solid #000;
+      border-top:2px solid #7c5af6;
+    }
+    .fs-side{flex:1;display:flex;flex-direction:column;min-width:0}
+    .fs-topbar{
+      flex-shrink:0;height:44px;background:#d9d9d9;border-radius:6px;border:1px solid #000;
+      margin-bottom:0;
+    }
+    .fs-body{
+      flex:1;background:#b9b9b9;border-radius:6px;border:1px solid #000;
+      padding:16px;display:flex;gap:16px;min-height:0;min-width:0;overflow:hidden;
+    }
+    .fs-p{background:#d9d9d9;border-radius:5px;border:1px solid #000;min-height:0}
+    .fs-p--left{border-top:2px solid #7c5af6!important}
+    .fs-p--center{border-top:2px solid #0ea5e9!important}
+    .fs-p--right{border-top:2px solid #f59e0b!important}
+    .fs-p--flex{min-width:0}
+    .fs-p--fixed{flex-shrink:0}
+    .fs-p--spacer{background:transparent!important;border:none!important;box-shadow:none!important}
+    .fs-p--ghost{background:transparent!important;border:1px dashed rgba(150,150,150,.22)!important;border-top:1px dashed rgba(150,150,150,.22)!important}
+  </style>
+</head>
+<body>
+  <div class="fs-root">
+    <div class="fs-app" id="fs-app">
+      <div class="fs-row">
+        <div class="fs-nav" style="${navStyle}"></div>
+        <div class="fs-side">
+          <div class="fs-topbar"></div>
+          <div class="fs-body">
+            ${leftHtml}
+            ${centerHtml}
+            ${rightHtml}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function(){
+      function go(){
+        var el = document.documentElement;
+        var r = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+        if (r) r.call(el).catch(function(){});
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go);
+      else go();
+    })();
+  <\/script>
+</body>
+</html>`;
+
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const url  = URL.createObjectURL(blob);
+      const w    = window.open(url, '_blank', 'noopener,noreferrer');
+      if (w) w.opener = null;
+      setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+    }
+
+    render();
+  </script>
+</body>
+</html>
