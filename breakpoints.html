@@ -731,10 +731,11 @@
     /** Opens a new tab: full-viewport preview; screen + column controls float over corners (no top bar). */
     function openFullScreen() {
       if (!breakpoints || !layouts) return;
-      const bpData     = JSON.stringify(breakpoints);
+      const bpData      = JSON.stringify(breakpoints);
       const layoutsData = JSON.stringify(layouts);
       const initialBP   = JSON.stringify(currentBP);
       const initialLay  = JSON.stringify(currentLayout);
+      const t           = themes[currentTheme];
 
       const html = `<!DOCTYPE html>
 <html lang="en">
@@ -778,22 +779,27 @@
     .fs-float__row{display:grid;grid-template-columns:1fr 1fr;gap:5px}
     .fs-float__row .fs-btn{font-size:10px;padding:6px 8px}
     .fs-float--dock .fs-btn[data-lay]{font-size:11px;padding:7px 10px}
+    :root{
+      --t-surface:${t.surface};
+      --t-panel:${t.panel};
+      --t-content:${t.content};
+    }
     .fs-root{
       height:100%;min-height:100vh;background:#111;
     }
     .fs-app{
       margin:0 auto;width:100%;height:100%;min-height:100vh;display:flex;flex-direction:column;
-      padding:4px;background:#e8e8e8;box-sizing:border-box;
+      padding:4px;background:var(--t-surface);box-sizing:border-box;
     }
     .fs-row{display:flex;flex:1;min-height:0;gap:0}
-    .fs-nav{flex-shrink:0;background:#d4d4d4;border-radius:6px}
+    .fs-nav{flex-shrink:0;background:var(--t-panel);border-radius:6px}
     .fs-side{flex:1;display:flex;flex-direction:column;min-width:0}
-    .fs-topbar{flex-shrink:0;height:44px;background:#d4d4d4;border-radius:6px}
+    .fs-topbar{flex-shrink:0;height:44px;background:var(--t-panel);border-radius:6px}
     .fs-body{
-      flex:1;background:#c8c8c8;border-radius:6px;padding:16px;display:flex;gap:16px;
+      flex:1;background:var(--t-content);border-radius:6px;padding:16px;display:flex;gap:16px;
       min-height:0;min-width:0;overflow:hidden;
     }
-    .fs-p{background:#d4d4d4;border-radius:5px;min-height:0}
+    .fs-p{background:var(--t-panel);border-radius:5px;min-height:0}
     .fs-p--flex{min-width:0}
     .fs-p--fixed{flex-shrink:0}
     .fs-p--spacer{background:transparent!important}
