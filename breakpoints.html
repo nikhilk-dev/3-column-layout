@@ -838,7 +838,23 @@
       <button type="button" class="fs-btn" id="fs-btn-2col" data-lay="2col">2-Column</button>
       <button type="button" class="fs-btn" id="fs-btn-1col" data-lay="1col">1-Column</button>
     </div>
+    <div class="fs-float__block">
+      <span class="fs-toolbar__label">Theme</span>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:5px">
+        <button class="fs-theme-btn" data-t-surface="#e8e8e8" data-t-panel="#d4d4d4" data-t-content="#c8c8c8" title="Ghost"    style="background:linear-gradient(135deg,#e8e8e8 50%,#c4c4c4 50%)"></button>
+        <button class="fs-theme-btn" data-t-surface="#1c1c1e" data-t-panel="#2c2c2e" data-t-content="#3a3a3c" title="Dark"     style="background:linear-gradient(135deg,#2c2c2e 50%,#1a1a1c 50%)"></button>
+        <button class="fs-theme-btn" data-t-surface="#dbeef8" data-t-panel="#a8cfe6" data-t-content="#82b8d4" title="Ocean"    style="background:linear-gradient(135deg,#b8d8ec 50%,#7ab4d0 50%)"></button>
+        <button class="fs-theme-btn" data-t-surface="#daeede" data-t-panel="#a8ceac" data-t-content="#7eb884" title="Forest"   style="background:linear-gradient(135deg,#a8ceac 50%,#78a87c 50%)"></button>
+        <button class="fs-theme-btn" data-t-surface="#ece8f8" data-t-panel="#c4b8e8" data-t-content="#a898d8" title="Amethyst" style="background:linear-gradient(135deg,#c4b8e8 50%,#9880d0 50%)"></button>
+        <button class="fs-theme-btn" data-t-surface="#f5ede0" data-t-panel="#e8d4a8" data-t-content="#d4b870" title="Amber"    style="background:linear-gradient(135deg,#e8d4a8 50%,#c8a860 50%)"></button>
+      </div>
+    </div>
   </div>
+  <style>
+    .fs-theme-btn{width:100%;aspect-ratio:1;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;transition:border-color .15s,transform .15s}
+    .fs-theme-btn:hover{transform:scale(1.18)}
+    .fs-theme-btn.active{border-color:#fafafa}
+  </style>
   <script>
 (function(){
   var breakpoints = ${bpData};
@@ -908,6 +924,20 @@
       render();
     });
   });
+
+  document.querySelectorAll('.fs-theme-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var r = document.documentElement;
+      r.style.setProperty('--t-surface', btn.getAttribute('data-t-surface'));
+      r.style.setProperty('--t-panel',   btn.getAttribute('data-t-panel'));
+      r.style.setProperty('--t-content', btn.getAttribute('data-t-content'));
+      document.querySelectorAll('.fs-theme-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+    });
+  });
+  /* Mark initial theme active */
+  var firstTheme = document.querySelector('.fs-theme-btn');
+  if(firstTheme) firstTheme.classList.add('active');
 
   render();
 
