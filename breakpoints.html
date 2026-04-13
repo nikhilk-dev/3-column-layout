@@ -279,6 +279,25 @@
     .legend-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
     .legend-label { font-size: 11px; color: var(--text-muted); }
 
+    /* ─── Theme switcher ─── */
+    .demo-controls--theme { align-items: center; gap: 5px; }
+    .theme-btn {
+      width: 22px; height: 22px; border-radius: 50%; border: 2px solid transparent;
+      cursor: pointer; padding: 0; flex-shrink: 0;
+      transition: border-color .15s ease, transform .15s ease;
+      position: relative;
+    }
+    .theme-btn:hover  { transform: scale(1.15); }
+    .theme-btn.active { border-color: var(--text-primary); }
+    .theme-btn::after {
+      content: attr(data-tip);
+      position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+      background: #2a2a2e; color: #e4e4e7; font-size: 10px; font-weight: 500;
+      padding: 3px 7px; border-radius: 4px; white-space: nowrap;
+      opacity: 0; pointer-events: none; transition: opacity .15s ease;
+    }
+    .theme-btn:hover::after { opacity: 1; }
+
     /* ─── Figma link ─── */
     .figma-source {
       display: inline-flex; align-items: center; gap: 7px;
@@ -457,6 +476,15 @@
             <button class="demo-btn" onclick="setBreakpoint('laptop')" id="btn-laptop">📟 Laptop · 1200px</button>
             <button class="demo-btn demo-btn--fill" onclick="setBreakpoint('fill')" id="btn-fill">⛶ Fill Screen</button>
           </div>
+          <div class="demo-controls demo-controls--theme">
+            <span class="demo-controls__label">Theme</span>
+            <button class="theme-btn active" data-theme="ghost"     data-tip="Ghost"     style="background:#d8d8d8;background:linear-gradient(135deg,#e8e8e8 50%,#c4c4c4 50%)"></button>
+            <button class="theme-btn"        data-theme="dark"      data-tip="Dark"      style="background:linear-gradient(135deg,#2c2c2e 50%,#1a1a1c 50%)"></button>
+            <button class="theme-btn"        data-theme="ocean"     data-tip="Ocean"     style="background:linear-gradient(135deg,#b8d8ec 50%,#7ab4d0 50%)"></button>
+            <button class="theme-btn"        data-theme="forest"    data-tip="Forest"    style="background:linear-gradient(135deg,#a8ceac 50%,#78a87c 50%)"></button>
+            <button class="theme-btn"        data-theme="amethyst"  data-tip="Amethyst"  style="background:linear-gradient(135deg,#c4b8e8 50%,#9880d0 50%)"></button>
+            <button class="theme-btn"        data-theme="amber"     data-tip="Amber"     style="background:linear-gradient(135deg,#e8d4a8 50%,#c8a860 50%)"></button>
+          </div>
           <div class="demo-controls">
             <span class="demo-controls__label">Layout</span>
             <button class="demo-btn demo-btn--layout active" onclick="setLayout('3col')" id="btn-3col">
@@ -530,6 +558,36 @@
     let layouts;
     let currentBP     = 'desktop';
     let currentLayout = '3col';
+
+    const themes = {
+      ghost:    { surface: '#e8e8e8', panel: '#d4d4d4', content: '#c8c8c8', label: 'Ghost'    },
+      dark:     { surface: '#1c1c1e', panel: '#2c2c2e', content: '#3a3a3c', label: 'Dark'     },
+      ocean:    { surface: '#dbeef8', panel: '#a8cfe6', content: '#82b8d4', label: 'Ocean'    },
+      forest:   { surface: '#daeede', panel: '#a8ceac', content: '#7eb884', label: 'Forest'   },
+      amethyst: { surface: '#ece8f8', panel: '#c4b8e8', content: '#a898d8', label: 'Amethyst' },
+      amber:    { surface: '#f5ede0', panel: '#e8d4a8', content: '#d4b870', label: 'Amber'    },
+    };
+    let currentTheme = 'ghost';
+
+    function setTheme(id) {
+      if (!themes[id]) return;
+      currentTheme = id;
+      const t = themes[id];
+      const root = document.documentElement;
+      root.style.setProperty('--color-surface-base', t.surface);
+      root.style.setProperty('--color-panel',        t.panel);
+      root.style.setProperty('--color-content-bg',   t.content);
+      document.querySelectorAll('.theme-btn').forEach(b =>
+        b.classList.toggle('active', b.dataset.theme === id));
+      /* update legend swatches */
+      const sw = document.querySelectorAll('.legend-swatch');
+      if (sw.length >= 4) {
+        sw[0].style.background = t.panel;
+        sw[1].style.background = t.content;
+        sw[2].style.background = t.content;
+        sw[3].style.background = t.panel;
+      }
+    }
 
     async function loadLayoutSpec() {
       try {
@@ -666,6 +724,9 @@
 
     function setBreakpoint(bp) { currentBP = bp; render(); }
     function setLayout(layout) { currentLayout = layout; render(); }
+
+    document.querySelectorAll('[data-theme]').forEach(btn =>
+      btn.addEventListener('click', () => setTheme(btn.dataset.theme)));
 
     /** Opens a new tab: full-viewport preview; screen + column controls float over corners (no top bar). */
     function openFullScreen() {
